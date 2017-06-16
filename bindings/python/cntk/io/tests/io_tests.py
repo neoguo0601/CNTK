@@ -704,6 +704,27 @@ def test_base64_image_deserializer(tmpdir):
             bgrImage = np.transpose(bgrImage, (2, 0, 1))
             assert (bgrImage == results[i][0]).all()
 
+
+def xtest_randomization(tmpdir):
+    ctf_data = str(tmpdir / 'mbdata.txt')
+    with open(ctf_data, 'wb') as f:
+        for i, sid in enumerate(range(10)):
+            line = sid + b'\t' + b'|index '+str(i).encode('ascii') + b'\n'
+            f.write(line)
+
+    ctf_deserializer = CTFDeserializer(ctf_data,
+        StreamDefs(index=StreamDef(field='index', shape=1)))
+
+    mb_source = MinibatchSource(ctf_deserializer)
+
+    for j in range(100):
+        mb = mb_source.next_minibatch(10)
+
+        index_stream = mb_source.streams['index']
+        index = mb[index_stream].asarray().flatten()
+
+        print(' '.join(index))
+
 class MyDataSource(UserMinibatchSource):
     def __init__(self, f_dim, l_dim):
         self.f_dim, self.l_dim = f_dim, l_dim
