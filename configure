@@ -1015,8 +1015,8 @@ then
     swig_path=$(find_swig)
     if test x$swig_path = x
     then
-        echo 'Cannot locate SWIG (>= 3.0.10), which is required Python/Java support.'
-        echo Check bindings/python/swig_install.sh for build instructions.
+        echo 'Cannot locate SWIG (>= 3.0.10), which is required for Python/Java support.'
+        echo Check Tools/devInstall/Linux/install-swig.sh for building it.
         exit 1
     fi
 fi
