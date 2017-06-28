@@ -121,10 +121,11 @@ def edit_distance_error(input_a, input_b, subPen=1, delPen=1, insPen=1, squashIn
 
 
     Example:
-        >>> i1 = cntk.input(shape=(2,))
-        >>> i2 = cntk.input(shape=(2,))
+        >>> import cntk as C
+        >>> i1 = C.input(shape=(2,))
+        >>> i2 = C.input(shape=(2,))
         >>> arguments = {i1 : [[1, 3], [2, 0]], i2 : [[2, 0], [2, 0]]}
-        >>> a = edit_distance_error(i1, i2, 0, 1, 1, True, [1])
+        >>> a = C.edit_distance_error(i1, i2, 0, 1, 1, True, [1])
         >>> print(a.eval(arguments))
 
     Args:

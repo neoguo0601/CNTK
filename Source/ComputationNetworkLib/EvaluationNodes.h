@@ -617,7 +617,10 @@ public:
                 //calculate edit distance
                 size_t firstSize = firstSeqVec.size();
                 size_t secondSize = secondSeqVec.size();
-                totalSampleNum += Environment().IsV2Library() ? secondSize : firstSize;
+                if (Base::HasEnvironmentPtr() && Base::Environment().IsV2Library())
+                    totalSampleNum += secondSize;
+                else 
+                    totalSampleNum += firstSize;
 
                 grid.Resize(firstSize + 1, secondSize + 1);
                 insMatrix.Resize(firstSize + 1, secondSize + 1);
